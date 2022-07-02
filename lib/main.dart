@@ -83,7 +83,7 @@ class Ground extends BodyComponent {
   @override
   Body createBody() {
     final shape = EdgeShape()
-      ..set(Vector2(0, gameSize.y - 3), Vector2(gameSize.x, gameSize.y - 3));
+      ..set(Vector2(0, gameSize.y - 5), Vector2(gameSize.x, gameSize.y));
     final fixtureDef = FixtureDef(shape, friction: 0.3);
     final bodyDef = BodyDef(userData: this, position: Vector2.zero());
     return world.createBody(bodyDef)..createFixture(fixtureDef);
