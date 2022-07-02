@@ -1,6 +1,6 @@
 # Flutter Box2D Game Tutorial with Flame and Forge2D
 
-![screenshot](docs/screenshot.gif)
+![screenshot](docs/sceenshot2.gif)
 
 ## Video Tutorials
 

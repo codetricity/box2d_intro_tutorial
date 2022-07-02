@@ -12,7 +12,7 @@ void main() {
 }
 
 class MyGame extends Forge2DGame {
-  MyGame() : super(gravity: Vector2(0, 7.0));
+  MyGame() : super(gravity: Vector2(0, 10.0));
   @override
   Future<void> onLoad() async {
     await super.onLoad();
@@ -43,11 +43,11 @@ class MyGame extends Forge2DGame {
         sprite: await loadSprite('yuri_casual.webp'),
       ),
     );
-    add(GroundObstacle(Vector2(100, 36)));
+    add(GroundObstacle(Vector2(80, 36)));
     add(GroundObstacle(Vector2(5, 50)));
-    add(Obstacle(Vector2(100, 28)));
-    add(Obstacle(Vector2(100, 20)));
-    add(Obstacle(Vector2(100, 12)));
+    add(Obstacle(Vector2(80, 28)));
+    add(Obstacle(Vector2(80, 20)));
+    add(Obstacle(Vector2(80, 12)));
   }
 }
 
