@@ -21,7 +21,7 @@ class MyGame extends Forge2DGame {
     add(Ground(gameSize));
     add(
       Player(
-        position: Vector2(20, 5),
+        position: Vector2(60, 5),
         sprite: await loadSprite('natsuki_casual.webp'),
       ),
     );
@@ -39,10 +39,21 @@ class MyGame extends Forge2DGame {
     );
     add(
       Player(
-        position: Vector2(20, 30),
+        position: Vector2(40, 30),
         sprite: await loadSprite('yuri_casual.webp'),
       ),
     );
+    add(GroundObstacle(position: Vector2(10, 40)));
+    add(GroundObstacle(position: Vector2(10, 30)));
+    add(GroundObstacle(position: Vector2(10, 20)));
+
+    add(GroundObstacle(position: Vector2(80, 70)));
+    add(Obstacle(position: Vector2(80, 60)));
+    add(Obstacle(position: Vector2(80, 50)));
+    add(Obstacle(position: Vector2(80, 40)));
+    add(Obstacle(position: Vector2(80, 30)));
+    // add(Obstacle(position: Vector2(80, 20)));
+    add(Animal(position: Vector2(80, 10)));
   }
 }
 
@@ -69,7 +80,7 @@ class Player extends BodyComponent {
   Body createBody() {
     final shape = CircleShape()..radius = 6;
     final fixtureDef =
-        FixtureDef(shape, density: 1.0, restitution: .4, friction: 0.5);
+        FixtureDef(shape, density: 1.0, restitution: .7, friction: 0.5);
     final bodyDef = BodyDef(position: position, type: BodyType.dynamic);
     return world.createBody(bodyDef)..createFixture(fixtureDef);
   }
@@ -83,9 +94,129 @@ class Ground extends BodyComponent {
   @override
   Body createBody() {
     final shape = EdgeShape()
-      ..set(Vector2(0, gameSize.y - 5), Vector2(gameSize.x, gameSize.y));
+      ..set(Vector2(0, gameSize.y - 6), Vector2(gameSize.x, gameSize.y));
     final fixtureDef = FixtureDef(shape, friction: 0.3);
     final bodyDef = BodyDef(userData: this, position: Vector2.zero());
+    return world.createBody(bodyDef)..createFixture(fixtureDef);
+  }
+}
+
+class GroundObstacle extends BodyComponent {
+  final Vector2 position;
+
+  GroundObstacle({required this.position});
+
+  @override
+  Future<void> onLoad() async {
+    await super.onLoad();
+    renderBody = false;
+    add(
+      SpriteComponent(
+        sprite: await gameRef.loadSprite('barrel.png'),
+        size: Vector2.all(6),
+        anchor: Anchor.center,
+      ),
+    );
+  }
+
+  @override
+  Body createBody() {
+    final shape = PolygonShape();
+    final vertices = [
+      Vector2(-3, -3),
+      Vector2(3, -3),
+      Vector2(-3, 2.8),
+      Vector2(3, 3)
+    ];
+
+    shape.set(vertices);
+    final fixtureDef = FixtureDef(
+      shape,
+      friction: 0.3,
+      density: 1,
+    );
+    final bodyDef =
+        BodyDef(userData: this, position: position, type: BodyType.dynamic);
+    return world.createBody(bodyDef)..createFixture(fixtureDef);
+  }
+}
+
+class Obstacle extends BodyComponent {
+  final Vector2 position;
+
+  Obstacle({required this.position});
+
+  @override
+  Future<void> onLoad() async {
+    await super.onLoad();
+    renderBody = false;
+    add(
+      SpriteComponent(
+        sprite: await gameRef.loadSprite('crate.png'),
+        size: Vector2.all(6),
+        anchor: Anchor.center,
+      ),
+    );
+  }
+
+  @override
+  Body createBody() {
+    final shape = PolygonShape();
+    final vertices = [
+      Vector2(-3, -3),
+      Vector2(3, -3),
+      Vector2(-3, 3),
+      Vector2(3, 3)
+    ];
+
+    shape.set(vertices);
+    final fixtureDef = FixtureDef(
+      shape,
+      friction: 0.3,
+      density: 1,
+    );
+    final bodyDef =
+        BodyDef(userData: this, position: position, type: BodyType.dynamic);
+    return world.createBody(bodyDef)..createFixture(fixtureDef);
+  }
+}
+
+class Animal extends BodyComponent {
+  final Vector2 position;
+
+  Animal({required this.position});
+
+  @override
+  Future<void> onLoad() async {
+    await super.onLoad();
+    renderBody = false;
+    add(
+      SpriteComponent(
+        sprite: await gameRef.loadSprite('pig.webp'),
+        size: Vector2.all(6),
+        anchor: Anchor.center,
+      ),
+    );
+  }
+
+  @override
+  Body createBody() {
+    final shape = PolygonShape();
+    final vertices = [
+      Vector2(-3, -3),
+      Vector2(3, -3),
+      Vector2(-3, 3),
+      Vector2(3, 3)
+    ];
+
+    shape.set(vertices);
+    final fixtureDef = FixtureDef(
+      shape,
+      friction: 0.3,
+      density: 0.5,
+    );
+    final bodyDef =
+        BodyDef(userData: this, position: position, type: BodyType.dynamic);
     return world.createBody(bodyDef)..createFixture(fixtureDef);
   }
 }
