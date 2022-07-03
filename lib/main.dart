@@ -19,41 +19,41 @@ class MyGame extends Forge2DGame {
     Vector2 gameSize = screenToWorld(camera.viewport.effectiveSize);
     print(gameSize);
     add(Ground(gameSize));
+    add(GroundObstacle(position: Vector2(10, 40)));
+    add(GroundObstacle(position: Vector2(10, 30)));
+    add(GroundObstacle(position: Vector2(10, 20)));
+
+    add(Obstacle(position: Vector2(80, 60)));
+    add(Obstacle(position: Vector2(80, 52)));
+    add(Obstacle(position: Vector2(80, 44)));
+    add(Obstacle(position: Vector2(80, 38)));
+    add(Obstacle(position: Vector2(80, 30)));
+    add(Animal(position: Vector2(80, 22)));
+
     add(
       Player(
-        position: Vector2(60, 5),
+        position: Vector2(60, -25),
         sprite: await loadSprite('natsuki_casual.webp'),
       ),
     );
     add(
       Player(
-        position: Vector2(30, 10),
+        position: Vector2(30, -110),
         sprite: await loadSprite('monika.webp'),
       ),
     );
     add(
       Player(
-        position: Vector2(30, 35),
+        position: Vector2(30, -35),
         sprite: await loadSprite('kieran.webp'),
       ),
     );
     add(
       Player(
-        position: Vector2(40, 30),
+        position: Vector2(40, -30),
         sprite: await loadSprite('yuri_casual.webp'),
       ),
     );
-    add(GroundObstacle(position: Vector2(10, 40)));
-    add(GroundObstacle(position: Vector2(10, 30)));
-    add(GroundObstacle(position: Vector2(10, 20)));
-
-    add(GroundObstacle(position: Vector2(80, 70)));
-    add(Obstacle(position: Vector2(80, 60)));
-    add(Obstacle(position: Vector2(80, 50)));
-    add(Obstacle(position: Vector2(80, 40)));
-    add(Obstacle(position: Vector2(80, 30)));
-    // add(Obstacle(position: Vector2(80, 20)));
-    add(Animal(position: Vector2(80, 10)));
   }
 }
 
